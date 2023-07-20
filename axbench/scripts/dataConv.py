@@ -30,7 +30,7 @@ class bcolors:
 
 
 def printUsage():
-	print "python dataConv.py <folder name>"
+	print("python dataConv.py <folder name>")
 	exit(1)
 
 def main():
@@ -51,7 +51,9 @@ def main():
 	input = []
 	output = []
 	dataSize = 0
+	print(folder_name) # ###
 	for file in os.listdir(folder_name):
+		print(file) # ###
 		total_path = folder_name + "/" + file
 		fileName, fileExtension = os.path.splitext(total_path)
 		if(fileExtension != ".bin"):
@@ -136,9 +138,9 @@ def main():
 			cfg.write("0") # linear activation function
 				
 	with open(output_data, 'w') as outf:
-		print "---------------------------------------------------------",
-		print bcolors.UNDERLINE + "\n# Total number of training data: %d" % (dataSize) + bcolors.ENDC
-		print "---------------------------------------------------------"
+		print("---------------------------------------------------------",end="")
+		print(bcolors.UNDERLINE + "\n# Total number of training data: %d" % (dataSize) + bcolors.ENDC)
+		print("---------------------------------------------------------")
 		outf.write("{} {} {}".format(dataSize, n_inputs, n_outputs) + '\n')
 		for x in range(0, dataSize):
 			currInput = ""

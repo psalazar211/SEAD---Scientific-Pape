@@ -23,7 +23,7 @@ class ParrotC(object):
     pass
 
     def actionObserve(self, extCmd, outFileName):
-        print 'Parrot Observer'
+        print('Parrot Observer')
         
         cfg = self.cfg.get("Parrot Observer")
         src = self.code.insertProbes(cfg)
@@ -62,7 +62,7 @@ class ParrotC(object):
                 cmd = 'rm -f ' + temp
                 if (self.args.track):
                     cmd = 'mv ' + temp + ' ' + temp + '.tmp'
-                print cmd
+                print(cmd)
                 os.system(cmd)
             pass
         except:
