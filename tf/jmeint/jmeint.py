@@ -60,9 +60,10 @@ for i in range(numTrain):
   inFloat.append(float(inStr[16]))
   inFloat.append(float(inStr[17]))
   inTrain.append(inFloat)
+  outStr = outLine.split()
   outFloat = []
-  outFloat.append(float(inStr[0]))
-  outFloat.append(float(inStr[1]))
+  outFloat.append(float(outStr[0]))
+  outFloat.append(float(outStr[1]))
   outTrain.append(outFloat)
 
 for i in range(numTest):
@@ -91,9 +92,10 @@ for i in range(numTest):
   inFloat.append(float(inStr[16]))
   inFloat.append(float(inStr[17]))
   inTest.append(inFloat)
+  outStr = outLine.split()
   outFloat = []
-  outFloat.append(float(inStr[0]))
-  outFloat.append(float(inStr[1]))
+  outFloat.append(float(outStr[0]))
+  outFloat.append(float(outStr[1]))
   outTest.append(outFloat)
 f.close()
 
