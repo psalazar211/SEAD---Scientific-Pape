@@ -10,6 +10,7 @@ Model
 """
 
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 model = tf.keras.models.Sequential([
 	tf.keras.layers.Input(dtype=float,shape=(9,)),
@@ -77,9 +78,36 @@ f.close()
 """Train model"""
 
 model.fit(inTrain, outTrain, epochs=100)
+model.evaluate(inTest, outTest, verbose=1)
 
-"""Evaluate"""
+#predictions = model.predict(inTest)
+#plt.figure(figsize = (15,10))
+#plt.scatter(outTest, predictions)
+#plt.xlabel("Actual edges")
+#plt.ylabel("Predicted edges")
+#plt.plot([0.7,0], [0.7,0], 'r')
+#plt.grid(True)
+#plt.show()
 
-ev = model.evaluate(inTest, outTest, verbose=1)
+for i in range(numTest):
+	test=[]
+	test.append(inTest[i])
+	#print(model.predict(test),outTest[i])
 
-print("MAE", ev[1])
+model.save('model')
+
+def representative_dataset():
+  for data in tf.data.Dataset.from_tensor_slices((inTrain)).batch(1).take(100):
+    yield [data]
+
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+converter.representative_dataset = representative_dataset
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+#converter.inference_input_type = tf.int8
+#converter.inference_output_type = tf.int8
+tflite_model = converter.convert()
+
+with open('model.tflite', 'wb') as f:
+  f.write(tflite_model)
+
